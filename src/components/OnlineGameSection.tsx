@@ -1,6 +1,7 @@
 import { Sparkles, Lock } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { LOTTERY_FIGURES } from '@/lib/lottery-data'
 
 export function OnlineGameSection() {
   return (
@@ -15,7 +16,7 @@ export function OnlineGameSection() {
           </div>
           
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Juega Pollo Lleno Online
+            Pollo Lleno Millonario
           </h2>
           
           <p className="text-lg md:text-xl text-primary-foreground/80 mb-12 max-w-2xl mx-auto">
@@ -25,17 +26,20 @@ export function OnlineGameSection() {
 
           <Card className="p-8 md:p-12 bg-background/10 backdrop-blur-sm border-primary-foreground/20 mb-8">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-4 mb-8">
-              {['🐴', '🦁', '🐸', '🦜', '🦋', '🔑'].map((emoji, idx) => (
-                <div
-                  key={idx}
-                  className="aspect-square rounded-lg bg-secondary/20 backdrop-blur-sm border-2 border-secondary/30 flex items-center justify-center text-4xl md:text-5xl transition-all hover:scale-110 hover:bg-secondary/30"
-                  style={{
-                    animationDelay: `${idx * 100}ms`,
-                  }}
-                >
-                  {emoji}
-                </div>
-              ))}
+              {[12, 15, 6, 7, 8, 9].map((num, idx) => {
+                const figure = LOTTERY_FIGURES.find(f => f.number === num)
+                return (
+                  <div
+                    key={idx}
+                    className="aspect-square rounded-lg bg-secondary/20 backdrop-blur-sm border-2 border-secondary/30 flex items-center justify-center p-2 transition-all hover:scale-110 hover:bg-secondary/30"
+                    style={{
+                      animationDelay: `${idx * 100}ms`,
+                    }}
+                  >
+                    <img src={figure?.image} alt={figure?.name} className="w-full h-full object-contain" />
+                  </div>
+                )
+              })}
             </div>
 
             <div className="space-y-4">

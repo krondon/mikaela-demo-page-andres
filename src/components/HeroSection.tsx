@@ -1,5 +1,6 @@
 import { Trophy, Sparkles } from 'lucide-react'
 import logo from '@/assets/images/BLANCO_Logo_de_Mikaela_La_Pollita_Millonaria-01.png'
+import { LOTTERY_FIGURES } from '@/lib/lottery-data'
 
 export function HeroSection() {
   return (
@@ -33,7 +34,9 @@ export function HeroSection() {
             </div>
             
             <div className="bg-destructive rounded-lg p-6 shadow-lg flex-1 max-w-xs relative overflow-hidden">
-              <div className="absolute top-0 right-0 text-6xl opacity-20">🐔</div>
+              <div className="absolute top-0 right-0 w-24 h-24 opacity-20">
+                <img src={LOTTERY_FIGURES.find(f => f.number === 21)?.image} alt="Mikaela" className="w-full h-full object-contain" />
+              </div>
               <Trophy className="h-8 w-8 text-destructive-foreground mx-auto mb-2 animate-pulse-glow" />
               <p className="text-2xl md:text-3xl font-bold text-destructive-foreground mb-1">40x</p>
               <p className="text-sm text-destructive-foreground font-medium">¡Si sale MIKAELA #21!</p>

@@ -60,7 +60,7 @@ export function NavigationHeader() {
               onClick={() => handleNavigate('juego-online')}
               className="text-sm font-medium hover:opacity-80 transition-opacity"
             >
-              Juego Online
+              Pollo Lleno Millonario
             </button>
           </nav>
 
