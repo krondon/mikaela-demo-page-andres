@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Calendar, Clock, Ticket, Star, History, Trophy, Search, AlertCircle } from 'lucide-react'
+import { Calendar, Clock, Ticket, Star, History, Trophy, Search, AlertCircle, Loader2 } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { LOTTERY_FIGURES } from '@/lib/lottery-data'
+import { lotteryApi, SpecialGameResult } from '@/services/lottery-api'
 import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -15,8 +16,9 @@ export function SpecialGame() {
   // Search state
   const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString())
   const [selectedMonth, setSelectedMonth] = useState<string>((new Date().getMonth() - 1).toString()) // Default to previous month
-  const [searchResult, setSearchResult] = useState<any>(null)
+  const [searchResult, setSearchResult] = useState<SpecialGameResult | null>(null)
   const [hasSearched, setHasSearched] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const years = Array.from({ length: 5 }, (_, i) => (new Date().getFullYear() - i).toString())
   const months = [
@@ -34,49 +36,22 @@ export function SpecialGame() {
     { value: '11', label: 'Diciembre' },
   ]
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const year = parseInt(selectedYear)
     const month = parseInt(selectedMonth)
     
-    // Calculate last Sunday of the month
-    const date = new Date(year, month + 1, 0) // Last day of month
-    const day = date.getDay() // 0 is Sunday
-    date.setDate(date.getDate() - day) // Go back to Sunday
-    
     setHasSearched(true)
-
-    // Check if date is in the future
-    if (date > new Date()) {
-      setSearchResult(null)
-      return
-    }
-
-    // Generate deterministic mock data based on date timestamp
-    // This ensures the "history" is consistent for the same date
-    const seed = date.getTime()
-    const figures: number[] = []
-    // Create a copy to splice from
-    const availableFigures = [...LOTTERY_FIGURES]
+    setIsLoading(true)
     
-    // Simple pseudo-random generator using the date seed
-    let currentSeed = seed
-    for (let i = 0; i < 6; i++) {
-      currentSeed = (currentSeed * 9301 + 49297) % 233280
-      const index = Math.floor((currentSeed / 233280) * availableFigures.length)
-      if (availableFigures[index]) {
-        figures.push(availableFigures[index].number)
-        availableFigures.splice(index, 1)
-      }
+    try {
+      const result = await lotteryApi.getSpecialGameHistory({ year, month })
+      setSearchResult(result)
+    } catch (error) {
+      console.error("Error fetching special game history:", error)
+      setSearchResult(null)
+    } finally {
+      setIsLoading(false)
     }
-
-    setSearchResult({
-      dateObj: date,
-      dateFormatted: format(date, "d 'de' MMMM, yyyy", { locale: es }),
-      figures: figures,
-      ticketSerial: (seed % 3 !== 0) ? `A-${seed.toString().slice(-7)}` : 'Vacante', // 2/3 chance of winner
-      prize: (seed % 2 === 0) ? '$50,000' : '$45,000',
-      status: (seed % 3 !== 0) ? 'Ganador' : 'Vacante'
-    })
   }
 
   // Perform initial search on mount
@@ -267,7 +242,12 @@ export function SpecialGame() {
 
             {/* Result Display */}
             <div className="w-full lg:w-2/3 flex justify-center">
-              {!hasSearched ? (
+              {isLoading ? (
+                <div className="text-center py-12 text-primary-foreground/50">
+                  <Loader2 className="h-16 w-16 mx-auto mb-4 animate-spin" />
+                  <p>Buscando resultados...</p>
+                </div>
+              ) : !hasSearched ? (
                 <div className="text-center py-12 text-primary-foreground/50">
                   <Search className="h-16 w-16 mx-auto mb-4 opacity-50" />
                   <p>Selecciona un mes y año para ver el resultado</p>

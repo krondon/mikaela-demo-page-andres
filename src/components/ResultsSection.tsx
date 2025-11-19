@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import { Calendar, Search, Clock } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Calendar, Search, Clock, Loader2 } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
-import { MOCK_RESULTS, SorteoType, getFigureByNumber, ORDINARY_TIMES } from '@/lib/lottery-data'
+import { SorteoType, getFigureByNumber, ORDINARY_TIMES, DailyResults, MOCK_RESULTS } from '@/lib/lottery-data'
+import { lotteryApi } from '@/services/lottery-api'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 
@@ -27,11 +28,28 @@ const SHIFTS = {
 }
 
 export function ResultsSection() {
-  const [selectedDate, setSelectedDate] = useState(MOCK_RESULTS[0].date)
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
   const [sorteoType, setSorteoType] = useState<SorteoType>('ordinario')
   const [selectedShift, setSelectedShift] = useState<ShiftType>('all')
+  
+  const [currentResults, setCurrentResults] = useState<DailyResults | undefined>(undefined)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const currentResults = MOCK_RESULTS.find(r => r.date === selectedDate)
+  useEffect(() => {
+    const fetchResults = async () => {
+      setIsLoading(true)
+      try {
+        const data = await lotteryApi.getResults({ date: selectedDate })
+        setCurrentResults(data)
+      } catch (error) {
+        console.error("Error fetching results:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchResults()
+  }, [selectedDate])
 
   const getFilteredOrdinaryResults = () => {
     if (!currentResults) return []
@@ -109,7 +127,12 @@ export function ResultsSection() {
             )}
           </div>
 
-          {currentResults ? (
+          {isLoading ? (
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <span className="ml-2 text-muted-foreground">Cargando resultados...</span>
+            </div>
+          ) : currentResults ? (
             <div className="overflow-x-auto">
               {sorteoType === 'ordinario' ? (
                 <div className="min-w-full">
