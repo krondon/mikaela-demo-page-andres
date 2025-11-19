@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Calendar, Search, Clock } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { MOCK_RESULTS, SorteoType, getFigureByNumber, ORDINARY_TIMES } from '@/lib/lottery-data'
@@ -61,18 +62,14 @@ export function ResultsSection() {
                 <Calendar className="inline h-4 w-4 mr-1" />
                 Fecha
               </label>
-              <Select value={selectedDate} onValueChange={setSelectedDate}>
-                <SelectTrigger className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {MOCK_RESULTS.map(result => (
-                    <SelectItem key={result.date} value={result.date}>
-                      {format(new Date(result.date), "EEEE, d 'de' MMMM yyyy", { locale: es })}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                min="2020-01-01"
+                max={new Date().toISOString().split('T')[0]}
+                className="w-full"
+              />
             </div>
 
             <div className="flex-1">
@@ -112,12 +109,12 @@ export function ResultsSection() {
             )}
           </div>
 
-          {currentResults && (
+          {currentResults ? (
             <div className="overflow-x-auto">
               {sorteoType === 'ordinario' ? (
                 <div className="min-w-full">
                   <h3 className="text-xl font-semibold mb-4 text-primary">
-                    Sorteo Ordinario - {format(new Date(selectedDate), "d 'de' MMMM", { locale: es })}
+                    Sorteo Ordinario - {format(new Date(selectedDate + 'T12:00:00'), "dd MM yy", { locale: es })}
                     {selectedShift !== 'all' && ` - ${SHIFTS[selectedShift].label.split('(')[0].trim()}`}
                   </h3>
                   {filteredOrdinaryResults.length > 0 ? (
@@ -211,6 +208,10 @@ export function ResultsSection() {
                   </div>
                 </div>
               )}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-foreground text-lg">No hay resultados disponibles para esta fecha.</p>
             </div>
           )}
         </Card>
