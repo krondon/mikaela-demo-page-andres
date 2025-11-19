@@ -43,13 +43,13 @@ export function NavigationHeader() {
           <nav className="hidden md:flex items-center gap-6">
             <button
               onClick={() => handleNavigate('hero')}
-              className="text-sm font-medium hover:opacity-80 transition-opacity"
+              className="text-sm font-medium hover:opacity-80 transition-opacity cursor-pointer"
             >
               Inicio
             </button>
             <button
               onClick={() => handleNavigate('resultados')}
-              className="text-sm font-medium hover:opacity-80 transition-opacity"
+              className="text-sm font-medium hover:opacity-80 transition-opacity cursor-pointer"
             >
               Resultados
             </button>
@@ -58,7 +58,7 @@ export function NavigationHeader() {
             </Link>
             <button
               onClick={() => handleNavigate('sorteo-especial')}
-              className="text-sm font-medium hover:opacity-80 transition-opacity"
+              className="text-sm font-medium hover:opacity-80 transition-opacity cursor-pointer"
             >
               Pollo Lleno Millonario
             </button>
@@ -80,13 +80,13 @@ export function NavigationHeader() {
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
             <button
               onClick={() => handleNavigate('hero')}
-              className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium"
+              className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium cursor-pointer"
             >
               Inicio
             </button>
             <button
               onClick={() => handleNavigate('resultados')}
-              className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium"
+              className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium cursor-pointer"
             >
               Resultados
             </button>
@@ -95,7 +95,7 @@ export function NavigationHeader() {
             </Link>
             <button
               onClick={() => handleNavigate('sorteo-especial')}
-              className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium"
+              className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium cursor-pointer"
             >
               Pollo Lleno Millonario
             </button>
