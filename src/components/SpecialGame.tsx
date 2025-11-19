@@ -168,11 +168,11 @@ export function SpecialGame() {
           </div>
 
           {/* Right Column: Card Simulation */}
-          <div className="flex-1 w-full max-w-xs relative perspective-1000">
+          <div className="flex-1 w-full max-w-[280px] relative perspective-1000">
             <div className="absolute -inset-4 bg-yellow-400/20 blur-3xl rounded-full animate-pulse"></div>
             
             <Card className="relative bg-white text-slate-900 p-3 shadow-2xl rotate-3 hover:rotate-0 transition-all duration-500 border-4 border-yellow-400 transform hover:scale-105">
-              <div className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-lg p-6">
+              <div className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-lg p-4">
                 <div className="flex flex-col items-center text-center mb-6 border-b border-slate-200 pb-4 gap-2">
                   <div>
                     <h3 className="font-black text-2xl text-primary uppercase tracking-tighter">Mikaela</h3>
@@ -218,7 +218,7 @@ export function SpecialGame() {
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold mb-4 flex items-center justify-center gap-3">
               <History className="h-8 w-8 text-yellow-400" />
-              Historial de Resultados
+              Historial Pollo Lleno Millonario
             </h3>
             <p className="text-primary-foreground/70">Consulta los cartones ganadores de los sorteos anteriores</p>
           </div>
@@ -281,9 +281,9 @@ export function SpecialGame() {
                   </p>
                 </div>
               ) : (
-                <div className="relative w-full max-w-sm mx-auto">
+                <div className="relative w-full max-w-[300px] mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-b from-yellow-400/10 to-transparent rounded-2xl blur-xl"></div>
-                  <Card className="relative bg-white text-slate-900 p-6 shadow-2xl border-none overflow-hidden">
+                  <Card className="relative bg-white text-slate-900 p-4 shadow-2xl border-none overflow-hidden">
                     <div className="absolute top-0 right-0 p-4 opacity-10">
                       <Trophy className="h-32 w-32" />
                     </div>
