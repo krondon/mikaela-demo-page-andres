@@ -49,7 +49,7 @@ export function NavigationHeader() {
             </button>
 
             <Link to="/tablero-en-vivo" className="text-sm font-medium hover:opacity-80 transition-opacity">
-              Tablero en Vivo
+              Sorteo en Vivo
             </Link>
 
             <button
@@ -90,7 +90,7 @@ export function NavigationHeader() {
               Inicio
             </button>
             <Link to="/tablero-en-vivo" className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium" onClick={() => setIsMenuOpen(false)}>
-              Tablero en Vivo
+              Sorteo en Vivo
             </Link>
             <button
               onClick={() => handleNavigate('resultados')}
