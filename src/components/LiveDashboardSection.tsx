@@ -100,6 +100,8 @@ export function LiveDashboardSection() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('todos')
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 8
 
     let primerLugar = metrics.pote * 0.7
     let segundoLugar = metrics.pote * 0.3
@@ -116,8 +118,17 @@ export function LiveDashboardSection() {
     return matchesDate && matchesSearch && matchesType
   })
 
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const currentData = filteredData.slice(startIndex, endIndex)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [date, searchTerm, filterType])
+
   const handleClearFilters = () => {
-    setDate(undefined)
+    setDate(new Date())
     setSearchTerm('')
     setFilterType('todos')
   }
@@ -266,7 +277,7 @@ export function LiveDashboardSection() {
           </div>
 
           {/* Filters */}
-          <Card className="bg-secondary/10 border-secondary/20">
+          <Card className="bg-secondary/10 border-secondary/20 max-w-5xl mx-auto">
             <CardContent className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div className="space-y-2">
@@ -382,8 +393,8 @@ export function LiveDashboardSection() {
           {/* Table */}
           <div className="bg-card rounded-xl shadow-sm border overflow-hidden max-w-5xl mx-auto">
             <div className="p-4 border-b bg-muted/20 flex justify-between items-center">
-              <span className="text-sm font-medium text-[#374151]">Mostrando Tickets 1 - {filteredData.length} de {filteredData.length}</span>
-              <span className="text-sm font-medium text-[#374151]">Página 1 de 1</span>
+              <span className="text-sm font-medium text-[#374151]">Mostrando Tickets {filteredData.length > 0 ? startIndex + 1 : 0} - {Math.min(endIndex, filteredData.length)} de {filteredData.length}</span>
+              <span className="text-sm font-medium text-[#374151]">Página {currentPage} de {Math.max(1, totalPages)}</span>
             </div>
             <Table>
               <TableHeader>
@@ -396,7 +407,7 @@ export function LiveDashboardSection() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredData.map((row) => (
+                {currentData.map((row) => (
                   <TableRow key={row.id} className="hover:bg-muted/10 transition-colors">
                     <TableCell className="font-mono font-bold text-[#000000]">{row.ticketNumber}</TableCell>
                     <TableCell>
@@ -455,24 +466,50 @@ export function LiveDashboardSection() {
               </TableBody>
             </Table>
             
+            {totalPages > 1 && (
             <div className="p-4 border-t bg-muted/20 flex justify-center">
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
-                    <PaginationPrevious href="#" />
+                    <PaginationPrevious 
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault()
+                        if (currentPage > 1) setCurrentPage(currentPage - 1)
+                      }}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                    />
                   </PaginationItem>
+                  
+                  {Array.from({ length: totalPages }).map((_, i) => (
+                    <PaginationItem key={i + 1}>
+                      <PaginationLink 
+                        href="#" 
+                        isActive={currentPage === i + 1}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setCurrentPage(i + 1)
+                        }}
+                      >
+                        {i + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+
                   <PaginationItem>
-                    <PaginationLink href="#" isActive>1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationNext href="#" />
+                    <PaginationNext 
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault()
+                        if (currentPage < totalPages) setCurrentPage(currentPage + 1)
+                      }}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                    />
                   </PaginationItem>
                 </PaginationContent>
               </Pagination>
             </div>
+            )}
           </div>
         </div>
       </div>

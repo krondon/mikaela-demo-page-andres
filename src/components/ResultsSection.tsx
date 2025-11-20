@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Calendar, Search, Clock, Loader2 } from 'lucide-react'
+import { Calendar as CalendarIcon, Search, Clock, Loader2 } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
+import { Calendar } from '@/components/ui/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { cn } from '@/lib/utils'
 import { SorteoType, getFigureByNumber, ORDINARY_TIMES, DailyResults, MOCK_RESULTS } from '@/lib/lottery-data'
 import { lotteryApi } from '@/services/lottery-api'
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
 
 type ShiftType = 'all' | 'morning' | 'afternoon' | 'night'
@@ -29,6 +32,7 @@ const SHIFTS = {
 
 export function ResultsSection() {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0])
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [sorteoType, setSorteoType] = useState<SorteoType>('ordinario')
   const [selectedShift, setSelectedShift] = useState<ShiftType>('all')
   
@@ -77,17 +81,40 @@ export function ResultsSection() {
           <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="flex-1">
               <label className="block text-sm font-medium mb-2 text-foreground">
-                <Calendar className="inline h-4 w-4 mr-1" />
+                <CalendarIcon className="inline h-4 w-4 mr-1" />
                 Fecha
               </label>
-              <Input
-                type="date"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-                min="2020-01-01"
-                max={new Date().toISOString().split('T')[0]}
-                className="w-full"
-              />
+              <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !selectedDate && "text-muted-foreground"
+                    )}
+                  >
+                    {selectedDate ? format(parseISO(selectedDate), "PPP", { locale: es }) : <span>Seleccionar fecha</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate ? parseISO(selectedDate) : undefined}
+                    onSelect={(d) => {
+                      if (d) {
+                        setSelectedDate(format(d, 'yyyy-MM-dd'))
+                        setIsCalendarOpen(false)
+                      }
+                    }}
+                    disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+                    initialFocus
+                    classNames={{
+                        head_row: "flex w-full justify-center",
+                        row: "flex w-full mt-2 justify-center"
+                    }}
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div className="flex-1">
