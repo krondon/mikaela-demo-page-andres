@@ -1,7 +1,7 @@
 import { Trophy, Sparkles, ChevronLeft, ChevronRight, Clock, Ticket, Award } from 'lucide-react' // Añadimos iconos de flecha
 import logo from '@/assets/images/BLANCO_Logo_de_Mikaela_La_Pollita_Millonaria-01.png'
-import { LOTTERY_FIGURES } from '@/lib/lottery-data' // Asumimos que LOTTERY_FIGURES es un array de objetos
-import { useState } from 'react' // Necesitamos useState
+import { LOTTERY_FIGURES, LotteryFigure } from '@/lib/lottery-data' // Asumimos que LOTTERY_FIGURES es un array de objetos
+import { useState, useMemo } from 'react' // Necesitamos useState
 import { motion, AnimatePresence } from 'framer-motion' // Importamos motion y AnimatePresence
 
 const GAME_MODES = [
@@ -37,11 +37,46 @@ const GAME_MODES = [
   }
 ];
 
+const MarqueeColumn = ({ figures, duration = 20, reverse = false }: { figures: LotteryFigure[], duration?: number, reverse?: boolean }) => {
+  return (
+    <div className="h-full overflow-hidden flex flex-col relative flex-1" style={{ maskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 5%, black 95%, transparent)' }}>
+      <motion.div
+        className="flex flex-col gap-6 pb-6"
+        initial={{ y: reverse ? "-50%" : "0%" }}
+        animate={{ y: reverse ? "0%" : "-50%" }}
+        transition={{
+          duration: duration,
+          ease: "linear",
+          repeat: Infinity
+        }}
+      >
+        {[...figures, ...figures].map((figure, index) => (
+          <div key={`${figure.number}-${index}`} className="flex-shrink-0 px-2">
+            <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-xl p-3 flex flex-col items-center gap-2 shadow-lg hover:scale-110 hover:bg-white/40 hover:border-primary/50 hover:shadow-primary/20 transition-all duration-300 group cursor-pointer">
+              <span className="text-xs font-bold text-white bg-black/30 px-2.5 py-0.5 rounded-full shadow-sm">#{figure.number}</span>
+              <div className="w-14 h-14 bg-white rounded-full p-2 shadow-inner group-hover:rotate-6 transition-transform duration-300">
+                <img src={figure.image} alt={figure.name} className="w-full h-full object-contain drop-shadow-sm" />
+              </div>
+              <span className="text-xs font-bold text-white text-center leading-tight truncate w-full drop-shadow-md">{figure.name}</span>
+            </div>
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  )
+}
+
 export function HeroSection() {
   // Estado para el índice del elemento actual en el carrusel
   const [currentIndex, setCurrentIndex] = useState(0);
   // Estado para la dirección de la animación (para saber si entra por izquierda o derecha)
   const [direction, setDirection] = useState(0); // 0 = sin dirección, 1 = derecha, -1 = izquierda
+
+  // Shuffled figures for the marquee
+  const shuffledFigures1 = useMemo(() => [...LOTTERY_FIGURES].sort(() => Math.random() - 0.5), []);
+  const shuffledFigures2 = useMemo(() => [...LOTTERY_FIGURES].sort(() => Math.random() - 0.5), []);
+  const shuffledFigures3 = useMemo(() => [...LOTTERY_FIGURES].sort(() => Math.random() - 0.5), []);
+  const shuffledFigures4 = useMemo(() => [...LOTTERY_FIGURES].sort(() => Math.random() - 0.5), []);
 
   // Función para ir al siguiente elemento
   const paginate = (newDirection: number) => {
@@ -84,21 +119,15 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZzI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
         
         {/* Left Side Figures */}
-        <div className="absolute left-0 top-0 bottom-0 w-1/4 hidden md:flex flex-wrap content-center justify-center gap-8 p-4 opacity-15">
-           {LOTTERY_FIGURES.slice(0, 20).map((figure, index) => (
-             <div key={figure.number} className="w-14 h-14 grayscale animate-pulse" style={{ animationDelay: `${index * 0.2}s`, animationDuration: '4s' }}>
-               <img src={figure.image} alt={figure.name} className="w-full h-full object-contain" />
-             </div>
-           ))}
+        <div className="absolute left-0 top-0 bottom-0 w-1/4 hidden md:flex justify-center gap-4 p-4 opacity-60 hover:opacity-100 transition-opacity duration-500 z-0">
+           <MarqueeColumn figures={shuffledFigures1} duration={35} />
+           <MarqueeColumn figures={shuffledFigures2} duration={45} reverse />
         </div>
 
         {/* Right Side Figures */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/4 hidden md:flex flex-wrap content-center justify-center gap-8 p-4 opacity-15">
-           {LOTTERY_FIGURES.slice(20, 40).map((figure, index) => (
-             <div key={figure.number} className="w-14 h-14 grayscale animate-pulse" style={{ animationDelay: `${index * 0.2}s`, animationDuration: '4s' }}>
-               <img src={figure.image} alt={figure.name} className="w-full h-full object-contain" />
-             </div>
-           ))}
+        <div className="absolute right-0 top-0 bottom-0 w-1/4 hidden md:flex justify-center gap-4 p-4 opacity-60 hover:opacity-100 transition-opacity duration-500 z-0">
+           <MarqueeColumn figures={shuffledFigures3} duration={40} />
+           <MarqueeColumn figures={shuffledFigures4} duration={50} reverse />
         </div>
       </div>
 
