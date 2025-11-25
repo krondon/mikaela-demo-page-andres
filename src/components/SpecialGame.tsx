@@ -92,10 +92,10 @@ export function SpecialGame() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-30"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-24">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-12 mb-24">
           
           {/* Left Column: Info & Countdown */}
-          <div className="flex-1 text-center lg:text-left space-y-8">
+          <div className="flex-1 max-w-xl text-center lg:text-left space-y-8">
             <div className="inline-flex items-center gap-2 bg-yellow-400/20 border border-yellow-400/50 px-4 py-1.5 rounded-full text-yellow-200 text-sm font-bold animate-pulse">
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
               <span>Sorteo Mensual Especial</span>
@@ -144,7 +144,7 @@ export function SpecialGame() {
           </div>
 
           {/* Right Column: Card Simulation */}
-          <div className="flex-1 w-full max-w-[280px] relative perspective-1000">
+          <div className="w-full max-w-[280px] relative perspective-1000">
             <div className="absolute -inset-4 bg-yellow-400/20 blur-3xl rounded-full animate-pulse"></div>
             
             <Card className="relative bg-white text-slate-900 p-3 shadow-2xl rotate-3 hover:rotate-0 transition-all duration-500 border-4 border-yellow-400 transform hover:scale-105">

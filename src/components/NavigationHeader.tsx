@@ -1,7 +1,7 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import logo from '@/assets/images/Logo_tipografico_Mikaela_La_Pollita_Millonaria-01.png'
+import logo from '@/assets/images/BLANCO_Logo_de_Mikaela_La_Pollita_Millonaria-01.png'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 export function NavigationHeader() {

@@ -19,7 +19,11 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': resolve(projectRoot, 'src')
-    }
+      "@": resolve(projectRoot, "./src"),
+    },
+  },
+  server: {
+    host: true, // Expose to local network
   },
 });
+

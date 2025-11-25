@@ -1,5 +1,5 @@
 import { Trophy, Sparkles, ChevronLeft, ChevronRight, Clock, Ticket, Award } from 'lucide-react' // Añadimos iconos de flecha
-import logo from '@/assets/images/BLANCO_Logo_de_Mikaela_La_Pollita_Millonaria-01.png'
+import logo from '@/assets/images/Logo Mikaela La Pollita Millonaria_Mesa de trabajo 1.png'
 import { LOTTERY_FIGURES, LotteryFigure } from '@/lib/lottery-data' // Asumimos que LOTTERY_FIGURES es un array de objetos
 import { useState, useMemo } from 'react' // Necesitamos useState
 import { motion, AnimatePresence } from 'framer-motion' // Importamos motion y AnimatePresence
@@ -113,7 +113,7 @@ export function HeroSection() {
   const currentGame = GAME_MODES[currentIndex]; // Obtiene el elemento actual a mostrar
 
   return (
-    <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-secondary via-secondary/90 to-accent py-16 md:py-24 min-h-[600px] flex flex-col justify-center">
+    <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-[#FF8F00] via-[#E95F32] to-[#FFC107] py-16 md:py-24 min-h-[600px] flex flex-col justify-center">
       {/* Background Pattern with Figures */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZzI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
