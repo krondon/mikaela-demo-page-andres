@@ -156,7 +156,7 @@ export function LiveDashboardSection() {
   }
 
   return (
-    <section id="tablero-en-vivo" className="py-12 bg-gradient-to-b from-background to-secondary/10 min-h-screen">
+    <section id="tablero-en-vivo" className="pt-24 pb-12 md:pt-32 bg-gradient-to-b from-background to-secondary/10 min-h-screen">
       <div className="container mx-auto px-4 space-y-12">
         
         {/* Section 1: Live Metrics Dashboard (Tablero de Hoy) */}
@@ -267,7 +267,7 @@ export function LiveDashboardSection() {
                         {date ? format(date, "PPP", { locale: es }) : <span className="text-[#374151]">Seleccionar fecha</span>}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
+                    <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
                         selected={date}
@@ -277,10 +277,6 @@ export function LiveDashboardSection() {
                         }}
                         disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
                         initialFocus
-                        classNames={{
-                          head_row: "flex w-full justify-center",
-                          row: "flex w-full mt-2 justify-center"
-                        }}
                       />
                     </PopoverContent>
                   </Popover>

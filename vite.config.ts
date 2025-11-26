@@ -10,6 +10,7 @@ const projectRoot = process.env.PROJECT_ROOT || import.meta.dirname
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [
     react(),
     tailwindcss(),
@@ -24,6 +25,10 @@ export default defineConfig({
   },
   server: {
     host: true, // Expose to local network
+    allowedHosts: [
+        'nuclear-facility-candle-prairie.trycloudflare.com',
+        'localhost', // Opcional, pero buena práctica
+    ],
   },
 });
 
