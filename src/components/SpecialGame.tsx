@@ -19,7 +19,7 @@ export function SpecialGame() {
   const [selectedMonth, setSelectedMonth] = useState<string>((new Date().getMonth() - 1).toString()) // Default to previous month
   const [searchResult, setSearchResult] = useState<SpecialGameResult | null>(null)
   const [hasSearched, setHasSearched] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const years = Array.from({ length: 5 }, (_, i) => (new Date().getFullYear() - i).toString())
   const months = [
@@ -165,7 +165,7 @@ export function SpecialGame() {
                     return (
                       <div key={num} className="aspect-square bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col items-center justify-center p-2 group hover:border-yellow-400 transition-colors">
                         <div className="relative w-full h-full flex items-center justify-center">
-                           <img src={figure?.image} alt={figure?.name} className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-300" />
+                           <img src={figure?.image} alt={figure?.name} loading="lazy" className="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-300" />
                         </div>
                         <span className="text-[10px] font-bold text-slate-400 uppercase mt-1 group-hover:text-yellow-600">{figure?.name}</span>
                       </div>
@@ -312,7 +312,7 @@ export function SpecialGame() {
                             const figure = LOTTERY_FIGURES.find(f => f.number === num)
                             return (
                               <div key={num} className="aspect-square bg-slate-50 rounded-lg border border-slate-200 flex flex-col items-center justify-center p-2 shadow-sm">
-                                <img src={figure?.image} alt={figure?.name} className="w-full h-full object-contain mb-1" />
+                                <img src={figure?.image} alt={figure?.name} loading="lazy" className="w-full h-full object-contain mb-1" />
                                 <span className="text-[10px] font-bold text-slate-500 uppercase">{figure?.name}</span>
                               </div>
                             )

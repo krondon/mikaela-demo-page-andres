@@ -12,6 +12,7 @@ import { SorteoType, getFigureByNumber, ORDINARY_TIMES, DailyResults, MOCK_RESUL
 import { lotteryApi } from '@/services/lottery-api'
 import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
+import { color } from 'framer-motion'
 
 type ShiftType = 'all' | 'morning' | 'afternoon' | 'night'
 
@@ -37,7 +38,7 @@ export function ResultsSection() {
   const [selectedShift, setSelectedShift] = useState<ShiftType>('all')
   
   const [currentResults, setCurrentResults] = useState<DailyResults | undefined>(undefined)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -51,6 +52,7 @@ export function ResultsSection() {
         console.error("❌ [Frontend] Error al obtener resultados:", error)
       } finally {
         setIsLoading(false)
+        
       }
     }
 
@@ -152,10 +154,10 @@ export function ResultsSection() {
             )}
           </div>
 
-          {isLoading ? (
+          { isLoading ? (
             <div className="flex justify-center items-center py-12">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              <span className="ml-2 text-muted-foreground">Cargando resultados...</span>
+              <span className="ml-2 text-muted-foreground" style={{color: 'black'}}>Cargando resultados...</span>
             </div>
           ) : currentResults ? (
             <div className="overflow-x-auto">
@@ -188,6 +190,7 @@ export function ResultsSection() {
                               <img 
                                 src={figure?.image} 
                                 alt={figure?.name}
+                                loading="lazy"
                                 className="object-contain w-full h-full"
                               />
                             </div>
@@ -247,6 +250,7 @@ export function ResultsSection() {
                               <img 
                                 src={figure?.image} 
                                 alt={figure?.name}
+                                loading="lazy"
                                 className="object-contain w-full h-full"
                               />
                             </div>
