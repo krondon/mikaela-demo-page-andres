@@ -53,7 +53,7 @@ const MarqueeColumn = ({ figures, duration = 20, reverse = false }: { figures: L
         {[...figures, ...figures].map((figure, index) => (
           <div key={`${figure.number}-${index}`} className="flex-shrink-0 px-2">
             <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-xl p-3 flex flex-col items-center gap-2 shadow-lg hover:scale-110 hover:bg-white/40 hover:border-primary/50 hover:shadow-primary/20 transition-all duration-300 group cursor-pointer">
-              <span className="text-xs font-bold text-white bg-black/30 px-2.5 py-0.5 rounded-full shadow-sm">#{figure.number}</span>
+              <span className="text-xs font-bold text-white bg-black/30 px-2.5 py-0.5 rounded-full shadow-sm">{figure.number}</span>
               <div className="w-14 h-14 bg-white rounded-full p-2 shadow-inner group-hover:rotate-6 transition-transform duration-300">
                 <img src={figure.image} alt={figure.name} loading="lazy" className="w-full h-full object-contain drop-shadow-sm" />
               </div>

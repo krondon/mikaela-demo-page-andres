@@ -26,7 +26,7 @@ export default defineConfig({
   server: {
     host: true, // Expose to local network
     allowedHosts: [
-        'nuclear-facility-candle-prairie.trycloudflare.com',
+        'mainly-wma-viruses-wild.trycloudflare.com',
         'localhost', // Opcional, pero buena práctica
     ],
   },

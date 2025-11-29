@@ -18,6 +18,9 @@ const defaultTheme = {
     padding: "2rem",
   },
   extend: {
+    fontFamily: {
+      sans: ['Montserrat', 'sans-serif'],
+    },
     screens: {
       coarse: { raw: "(pointer: coarse)" },
       fine: { raw: "(pointer: fine)" },
