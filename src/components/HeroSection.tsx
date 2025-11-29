@@ -18,7 +18,7 @@ const COLORS = {
     primaryIconBg: 'bg-green-900/50', // Círculo de icono más oscuro
     primaryIconText: 'text-yellow-300',
 
-    // Colores para modo Extra-ordinario (Pollo Lleno)
+    // Colores para modo (Pollo Lleno)
     accentText: 'text-yellow-300',
     accentIconBg: 'bg-green-900',  
     accentIconText: 'text-yellow-300',
@@ -49,7 +49,7 @@ const GAME_MODES = [
         // Texto ajustado para usar el amarillo de contraste
         description: <p className={COLORS.primaryText}> <b className={COLORS.highlightText}>10 sorteos diarios</b>. Gana 30x tu apuesta, o 40x si sale Mikaela (<span className={COLORS.highlightText}>#21</span>). </p>,
         icon: Clock,
-        color: COLORS.primaryText,
+        color: COLORS.accentText,
         bgColor: COLORS.primaryIconBg,
         iconColor: COLORS.primaryIconText,
         borderColor: COLORS.cardBorder
@@ -61,7 +61,7 @@ const GAME_MODES = [
         // Texto ajustado para usar el amarillo de contraste
         description: <p className={COLORS.primaryText}>Tickets pre-impresos con combinaciones únicas. <b className={COLORS.highlightText}>¡Gana según tus aciertos!</b></p>,
         icon: Ticket,
-        color: COLORS.primaryText,
+        color: COLORS.accentText,
         bgColor: COLORS.primaryIconBg,
         iconColor: COLORS.primaryIconText,
         borderColor: COLORS.cardBorder
@@ -70,7 +70,21 @@ const GAME_MODES = [
 
 // Componente visual para Pollo Lleno (Cuenta regresiva + Monto)
 const PolloLlenoContent = ({ timeLeft }) => {
-    const metrics = { pote: 12500.00 }; // Simulación de métricas
+
+    const [metrics, setMetrics] = useState({ pote: 12500.00 }); // Simulación de métricas
+
+    // Simulate live updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMetrics(prev => ({
+        ...prev,
+        pote: prev.pote + Math.random() * 100,
+      }))
+    
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
 
     return (
         <div className="w-full flex flex-col gap-3 mt-1 text-center">
@@ -90,7 +104,7 @@ const PolloLlenoContent = ({ timeLeft }) => {
                         { label: 'SEG', value: timeLeft.seconds }
                     ].map((item, i) => (
                         <div key={i} className="flex flex-col bg-green-900 rounded-lg p-2 shadow-inner"> {/* Cuadros aún más oscuros */}
-                            <span className="text-2xl font-extrabold text-white tabular-nums leading-none">
+                            <span className="text-xl md:text-2xl font-extrabold text-white tabular-nums leading-none">
                                 {item.value.toString().padStart(2, '0')}
                             </span>
                             <span className="text-[10px] text-green-300 uppercase font-medium mt-1">
@@ -105,9 +119,9 @@ const PolloLlenoContent = ({ timeLeft }) => {
             <div className="bg-green-800 rounded-xl p-3 border-2 border-yellow-400 shadow-lg flex flex-col items-center relative overflow-hidden transition-shadow hover:shadow-xl">
                 
                 <span className="text-sm text-green-200 font-bold mb-1 tracking-wider uppercase">
-                    Pozo Acumulado
+                    Monto Acumulado
                 </span>
-                <div className="text-3xl font-black text-yellow-300 flex items-center gap-1">
+                <div className="text-2xl md:text-3xl font-black text-yellow-300 flex items-center gap-1">
                     {metrics.pote.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs
                 </div>
                 
@@ -261,7 +275,7 @@ export function HeroSection() {
                     </div>
 
                     {/* Carrusel de Modalidades de Juego */}
-                    <div className="relative flex justify-center items-center w-full max-w-2xl mx-auto h-96">
+                    <div className="relative flex justify-center items-center w-full max-w-2xl mx-auto h-[500px] md:h-96">
                         
                         {/* Botón Anterior */}
                         <button
@@ -298,7 +312,7 @@ export function HeroSection() {
                                         paginate(-1);
                                     }
                                 }}
-                                className="absolute w-full flex justify-center items-center px-12 h-full"
+                                className="absolute w-full flex justify-center items-center px-4 md:px-12 h-full"
                             >
                                 {/* Tarjeta del Carrusel - AHORA CON FONDO VERDE UNIFICADO */}
                                 <div 
@@ -313,7 +327,7 @@ export function HeroSection() {
                                         border-2 ${currentGame.borderColor} 
                                         min-h-[320px] 
                                         transition-shadow hover:shadow-3xl
-                                        ring-4 ring-green-600/50 
+                                        ring-4 ring-green-600/50 border border-yellow-300 font-medium
                                     `}
                                 >
                                     
@@ -325,11 +339,21 @@ export function HeroSection() {
                                         </div>
                                         {/* Título y Subtítulo */}
                                         {currentGame.id === 'pollo-lleno' ? (
-                                            <div className="text-left">
-                                                <h3 className={`text-2xl font-black ${currentGame.color}`}>{currentGame.title}</h3>
-                                                <span className={`flex-1 max-w-xl text-center lg:text-left space-y-8">
-            <div className="inline-flex items-center gap-2 bg-yellow-400/20 border border-yellow-400/50 px-4 py-1.5 rounded-full text-yellow-200 text-sm font-bold animate-pulse`}>{currentGame.subtitle}</span>
-                                            </div>
+                                    <div className="text-left">
+                                    {/* Título: Añadimos mb-4 (margin-bottom de 1rem) para separarlo del siguiente elemento. */}
+                                    <h3 className={`text-2xl font-black ${currentGame.color} mb-4`}>
+                                        {currentGame.title}
+                                    </h3>
+                                    
+                                    {/* Contenedor del subtítulo: Simplificamos la estructura. */}
+                                    <div>
+                                        <div 
+                                        className="inline-flex items-center gap-2 bg-yellow-400/20 border border-yellow-400/50 px-4 py-1.5 rounded-full text-yellow-200 text-sm font-bold animate-pulse"
+                                        >
+                                        {currentGame.subtitle}
+                                        </div>
+                                    </div>
+                                    </div>
                                         ) : (
                                             <>
                                                 <h3 className={`text-3xl font-black mb-1 ${currentGame.color} tracking-tight`}>{currentGame.title}</h3>
