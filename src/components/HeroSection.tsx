@@ -74,6 +74,7 @@ const PolloLlenoContent = ({ timeLeft }) => {
 
     return (
         <div className="w-full flex flex-col gap-3 mt-1 text-center">
+          
             {/* 1. SECCIÓN CUENTA REGRESIVA - Fondo Verde Oscuro */}
             <div className="bg-green-800 rounded-xl p-4 shadow-inner w-full"> 
                 <div className="flex items-center justify-center gap-2 mb-3 text-yellow-300"> 
@@ -153,15 +154,6 @@ const MarqueeColumn = ({ figures, duration = 20, reverse = false }) => {
     )
 }
 
-// Componente principal de la aplicación React
-const App = () => {
-    // Se usa App como componente principal y export default
-    return (
-        <div className="min-h-screen bg-slate-100 font-sans antialiased">
-            <HeroSection />
-        </div>
-    );
-}
 
 export function HeroSection() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -239,6 +231,7 @@ export function HeroSection() {
 
     return (
         <section id="hero" className="relative overflow-hidden py-16 md:py-24 min-h-[600px] flex flex-col justify-center" style={{ backgroundImage: 'linear-gradient(180deg, #E4332F 0%, #E95731 35%, #F79133 70%, #FDEB37 100%)'}}>
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-100"></div>
             {/* Background Pattern with Figures */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {/* Patrón de puntos */}
