@@ -2,8 +2,8 @@
 @import "tw-animate-css";
 
 @layer base {
-  * {
-    @apply border-border
+ * {
+     @apply border-border;
   }
   
   body {
@@ -67,7 +67,7 @@
 /* --- La IMAGEN que se va a hacer zoom --- */
 .zoom-image {
     /* Asegura que la imagen ocupe el 100% del contenedor 
-      inicial (h-16 w-16 en este caso).
+       inicial (h-16 w-16 en este caso).
     */
     width: 100%;
     height: 100%;
@@ -83,8 +83,8 @@
 /* --- Estado HOVER (Cuando el cursor pasa por encima) --- */
 .image-wrapper:hover .zoom-image {
     /* CLAVE: Escala la imagen. Un valor de 1.5 es un 150% de su tamaño original.
-      La imagen se agranda y, gracias a 'overflow: visible' en el padre, 
-      sale de los límites visuales del div 'h-16 w-16'.
+       La imagen se agranda y, gracias a 'overflow: visible' en el padre, 
+       sale de los límites visuales del div 'h-16 w-16'.
     */
     transform: scale(1.5);
 }
@@ -94,7 +94,47 @@
   cursor: pointer;
 }
 
+/* Bloque :root con las variables de espaciado añadidas */
 :root {
+  /* --- SPACING VARIABLES (Añadidas para soportar w-8, size-8, etc.) --- */
+  --size-px: 1px;
+  --size-0: 0px;
+  --size-0-5: 0.125rem; /* 2px */
+  --size-1: 0.25rem; /* 4px */
+  --size-1-5: 0.375rem; /* 6px */
+  --size-2: 0.5rem; /* 8px */
+  --size-2-5: 0.625rem; /* 10px */
+  --size-3: 0.75rem; /* 12px */
+  --size-3-5: 0.875rem; /* 14px */
+  --size-4: 1rem; /* 16px */
+  --size-5: 1.25rem; /* 20px */
+  --size-6: 1.5rem; /* 24px */
+  --size-7: 1.75rem; /* 28px */
+  --size-8: 2rem; /* 32px <-- ¡ESTA ES LA CLAVE! */
+  --size-9: 2.25rem; /* 36px */
+  --size-10: 2.5rem; /* 40px */
+  --size-11: 2.75rem; /* 44px */
+  --size-12: 3rem; /* 48px */
+  --size-14: 3.5rem; /* 56px */
+  --size-16: 4rem; /* 64px */
+  --size-20: 5rem; /* 80px */
+  --size-24: 6rem; /* 96px */
+  --size-28: 7rem;
+  --size-32: 8rem;
+  --size-36: 9rem;
+  --size-40: 10rem;
+  --size-44: 11rem;
+  --size-48: 12rem;
+  --size-52: 13rem;
+  --size-56: 14rem;
+  --size-60: 15rem;
+  --size-64: 16rem;
+  --size-72: 18rem;
+  --size-80: 20rem;
+  --size-96: 24rem;
+  /* --- FIN DE SPACING VARIABLES --- */
+
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.15 0 0);
   
