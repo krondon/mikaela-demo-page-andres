@@ -66,11 +66,15 @@ export const lotteryApi = {
       console.log('[LotteryAPI] Rango de consulta (inclusive-exclusive):', today, 'a', tomorrow);
 
       // CORRECCIÓN: La columna de fecha/hora se llama 'draw_time', no 'date'.
+      // OPTIMIZACIÓN: Seleccionamos solo las columnas necesarias para reducir la carga de red.
+      // IMPORTANTE: Para mejorar la velocidad, crea este índice en Supabase:
+      // CREATE INDEX idx_draws_lottery_date ON draws (lottery_id, draw_time);
       const { data: draws, error } = await supabase
         .from('draws')
-        .select('*')
+        .select('draw_time, winning_animal_number')
         .gte('draw_time', today)
-        .lt('draw_time', tomorrow);
+        .lt('draw_time', tomorrow)
+        .eq('lottery_id', '142d934a-7c6a-452b-b117-c34194bcaf03');
 
       if (error) {
         console.error('[LotteryAPI] Error fetching draws from Supabase:', error);
