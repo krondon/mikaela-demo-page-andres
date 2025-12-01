@@ -26,7 +26,7 @@ export default defineConfig({
   server: {
     host: true, // Expose to local network
     allowedHosts: [
-        'mainly-wma-viruses-wild.trycloudflare.com',
+        // 'firewall-known-coordinates-ski.trycloudflare.com',
         'localhost', // Opcional, pero buena práctica
     ],
   },
