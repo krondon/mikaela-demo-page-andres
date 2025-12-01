@@ -172,7 +172,7 @@ export function ResultsSection() {
                     {selectedShift !== 'all' && ` - ${SHIFTS[selectedShift].label.split('(')[0].trim()}`}
                   </h3>
                   {filteredOrdinaryResults.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                       {filteredOrdinaryResults.map((result, idx) => {
                         const figure = getFigureByNumber(result.figureNumber)
                         const isMikaela = result.figureNumber === 21
@@ -248,7 +248,7 @@ export function ResultsSection() {
                       </p>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-6">
                       {currentResults.extraordinary.figures.map((figNum, idx) => {
                         const figure = getFigureByNumber(figNum)
                         const isMikaela = figNum === 21

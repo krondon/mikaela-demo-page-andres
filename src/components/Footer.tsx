@@ -4,24 +4,24 @@ import logo from '@/assets/images/Logo_tipografico_Mikaela_La_Pollita_Millonaria
 
 export function Footer() {
   return (
-    <footer className="bg-primary text-primary-foreground py-12">
+    <footer className="bg-primary text-primary-foreground py-8 md:py-12 w-full relative z-10">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 text-center md:text-left">
+          <div className="flex flex-col items-center md:items-start">
+            <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
               <img src={logo} alt="Mikaela La Pollita Millonaria" className="h-10 w-auto object-contain" />
-              <div>
+              <div className="text-left">
                 <h3 className="font-bold text-lg">Mikaela</h3>
                 <p className="text-xs opacity-80">La Pollita Millonaria</p>
               </div>
             </div>
-            <p className="text-sm opacity-80">
+            <p className="text-sm opacity-80 max-w-xs mx-auto md:mx-0">
               Lotería oficial venezolana que te brinda oportunidades diarias de ganar. 
               Operado con responsabilidad y transparencia.
             </p>
           </div>
 
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="font-semibold mb-4">Información Legal</h4>
             <div className="space-y-2 text-sm opacity-80">
               <p>Operado por: Daga.corporación22 C.A.</p>
@@ -30,7 +30,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="font-semibold mb-4">Horarios de Sorteo</h4>
             <div className="space-y-2 text-sm opacity-80">
               <p>🕐 La Pollita: 10:00 AM - 7:00 PM</p>

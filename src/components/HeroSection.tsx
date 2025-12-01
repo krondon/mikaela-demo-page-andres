@@ -367,8 +367,11 @@ export function HeroSection() {
                                         ) : (
                                             <>
                                                 <h3 className={`text-3xl font-black mb-1 ${currentGame.color} tracking-tight`}>{currentGame.title}</h3>
-                                                <span className={`flex-1 max-w-xl text-center lg:text-left space-y-8">
-            <div className="inline-flex items-center gap-2 bg-yellow-400/20 border border-yellow-400/50 px-4 py-1.5 rounded-full text-yellow-200 text-sm font-bold animate-pulse`}>{currentGame.subtitle}</span>
+                                                <div className="flex-1 max-w-xl text-center lg:text-left space-y-8 mt-2">
+                                                    <div className="inline-flex items-center gap-2 bg-yellow-400/20 border border-yellow-400/50 px-4 py-1.5 rounded-full text-yellow-200 text-sm font-bold animate-pulse">
+                                                        {currentGame.subtitle}
+                                                    </div>
+                                                </div>
                                             </>
                                         )}
                                     </div>

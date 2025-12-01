@@ -20,9 +20,9 @@ function App() {
   }, [location])
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <NavigationHeader />
-      <main>
+      <main className="flex-1">
         <HeroSection />
         <ResultsSection />
         <SpecialGame />
