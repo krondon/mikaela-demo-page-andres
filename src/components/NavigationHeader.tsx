@@ -105,12 +105,7 @@ export function NavigationHeader() {
             <Link to="/reglamento" className="text-sm font-medium hover:opacity-80 transition-opacity">
               Reglamento
             </Link>
-            <button
-              onClick={() => handleNavigate('sorteo-especial')}
-              className="text-sm font-medium hover:opacity-80 transition-opacity cursor-pointer"
-            >
-              Pollo Lleno Millonario
-            </button>
+            
             
             {/* RRSS en Desktop - Usamos el componente */}
             <SocialMediaIcons />
@@ -159,12 +154,7 @@ export function NavigationHeader() {
             <Link to="/reglamento" className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium" onClick={() => setIsMenuOpen(false)}>
               Reglamento
             </Link>
-            <button
-              onClick={() => handleNavigate('sorteo-especial')}
-              className="text-left py-3 px-4 rounded-md hover:bg-primary-foreground/10 transition-colors font-medium cursor-pointer"
-            >
-              Pollo Lleno Millonario
-            </button>
+            
           </nav>
         </div>
       )}

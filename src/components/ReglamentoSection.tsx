@@ -139,7 +139,7 @@ export function ReglamentoSection() {
               </AccordionContent>
             </AccordionItem>
 
-            {/* 3. Millonario */}
+            {/* 3. Millonario
             <AccordionItem value="millonario" className="border rounded-lg overflow-hidden">
               <AccordionTrigger className="px-6 py-4 hover:bg-secondary/5 transition-colors">
                 <div className="flex items-center gap-3 text-left">
@@ -185,7 +185,7 @@ export function ReglamentoSection() {
                   </div>
                 </Card>
               </AccordionContent>
-            </AccordionItem>
+            </AccordionItem> */}
           </Accordion>
 
           {/* Reglas de Cobro */}
