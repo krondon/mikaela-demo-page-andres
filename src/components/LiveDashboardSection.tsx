@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils'
 // Mock data for live metrics
 const LIVE_METRICS = {
   pote: 15450.00,
+  result: 20000.00,
   ganadores: 4494.00,
   tickets: 137
 }
@@ -67,6 +68,7 @@ const HISTORY_DATA = DAILY_DRAWS.flatMap((draw, drawIndex) => {
         if (rank === 'GANADOR') {
             const totalWinners = 3 // Fixed number of winners for demo
             const perWinner = draw.totalPot / totalWinners
+            const resultTodayTest = 20000/3;
             premio = `${perWinner.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs`
         }
     } else {
@@ -187,8 +189,9 @@ export function LiveDashboardSection() {
             <Card className="border-none shadow-md hover:shadow-lg transition-shadow bg-card">
               <CardContent className="p-6 flex flex-col items-center text-center">
                 <span className="text-sm text-slate-600 font-bold mb-2">Monto Recaudado</span>
+                {/* Monto de prueba sin base de datos */}
                 <div className="text-3xl font-bold text-primary flex items-center gap-1">
-                  {metrics.pote.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs
+                  {(isSameDay(parseISO(selectedDraw?.date || ''), new Date()) && new Date().getHours() >= 20 ? metrics.result : metrics.pote).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs
                 </div>
                 <Badge variant="outline" className="mt-2 text-xs bg-green-50 text-green-700 border-green-200">
                   +2.5% vs ayer
@@ -332,7 +335,7 @@ export function LiveDashboardSection() {
                 <div className="flex flex-col items-center">
                   <span className="text-xs font-bold text-primary-foreground/80 uppercase tracking-wider">Pote Total</span>
                   <div className="text-2xl font-bold text-[var(--mikaela-gold)] flex items-center gap-1">
-                    {(isSameDay(parseISO(selectedDraw.date), new Date()) ? metrics.pote : selectedDraw.totalPot).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs
+                    {(isSameDay(parseISO(selectedDraw.date), new Date()) ? metrics.result : selectedDraw.totalPot).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs
                   </div>
                 </div>
 
@@ -420,10 +423,22 @@ export function LiveDashboardSection() {
                         </Badge>
                       )}
                     </TableCell>
-                    <TableCell className="text-right font-mono font-bold text-[#000000]">
-                      {row.premio}
-                    </TableCell>
-                  </TableRow>
+                    {isSameDay(parseISO(row.fecha), new Date()) ? (
+                      <TableCell className="text-right font-mono font-bold text-primary">
+                        {row.premio !== '-' ? (
+                          <>
+                            {((20000 / 3) .toLocaleString('es-VE', { minimumFractionDigits: 2 }))} Bs
+                          </>
+                        ) : (
+                          '-'
+                        )}
+                      </TableCell>
+                    ) : (
+                      <TableCell className="text-right font-mono font-bold text-primary">
+                        {row.premio}
+                      </TableCell>
+                    )}
+                  </TableRow>                  
                 ))}
               </TableBody>
             </Table>
