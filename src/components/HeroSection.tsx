@@ -1,7 +1,7 @@
 import { Trophy, Sparkles, ChevronLeft, ChevronRight, Clock, Ticket, Award } from 'lucide-react' // Añadimos iconos de flecha
 import logo from '@/assets/images/Logo Mikaela La Pollita Millonaria_Mesa de trabajo 1.png'
 import { LOTTERY_FIGURES, LotteryFigure } from '@/lib/lottery-data' // Asumimos que LOTTERY_FIGURES es un array de objetos
-import { useState, useMemo,useEffect } from 'react' // Necesitamos useState
+import { useState, useMemo, useEffect, memo } from 'react' // Necesitamos useState
 import { motion, AnimatePresence } from 'framer-motion' // Importamos motion y AnimatePresence
 
 // Definición de colores ajustados para fondo verde (según solicitud del usuario)
@@ -140,7 +140,7 @@ const PolloLlenoContent = ({ timeLeft }) => {
 };
 
 // Se cambia el tipo de 'figures' a 'any[]' para evitar errores de tipo al mover la definición de datos
-const MarqueeColumn = ({ figures, duration = 100, reverse = false, className = "" }) => {
+const MarqueeColumn = memo(({ figures, duration = 100, reverse = false, className = "" }: any) => {
     const allFigures = useMemo(() => {
         // Reducimos la duplicación a 2 veces para mejorar el rendimiento (menos nodos DOM)
         // Con 40 figuras, 2x son 80 elementos, suficiente para cubrir la pantalla varias veces.
@@ -161,12 +161,12 @@ const MarqueeColumn = ({ figures, duration = 100, reverse = false, className = "
                 }}
             >
                 {/* Usamos el array cuadruplicado */}
-                {allFigures.map((figure, index) => (
+                {allFigures.map((figure: any, index: number) => (
                     <div key={`${figure.number}-${index}`} className="flex-shrink-0 px-2">
                         {/* Reintroducimos el hover de forma ligera y rápida (duration-150) */}
-                        <div className="bg-white/20 border border-white/30 rounded-xl p-4 flex flex-col items-center gap-3 shadow-lg hover:scale-[1.05] hover:bg-white/40 transition-all duration-150 group cursor-pointer">
+                        <div className="h-60 w-full bg-white/20 border border-white/30 rounded-xl p-4 flex flex-col items-center justify-center gap-3 shadow-lg hover:scale-[1.05] hover:bg-white/40 transition-all duration-150 group cursor-pointer">
                             <span className="text-sm font-bold text-white bg-black/30 px-3 py-1 rounded-full shadow-sm" style={{fontSize:'20px'}}>{figure.number}</span>
-                            <div className="w-30 h-30 bg-white rounded-full p-3 shadow-inner group-hover:rotate-3 transition-transform duration-150">
+                            <div className="w-28 h-28 bg-white rounded-full p-3 shadow-inner group-hover:rotate-3 transition-transform duration-150">
                                 <img src={figure.image} alt={figure.name} loading="lazy" className="w-full h-full object-contain drop-shadow-sm" />
                             </div>
                             <span className="text-sm font-bold text-white text-center leading-tight truncate w-full drop-shadow-md" style={{fontSize:'20px'}}>{figure.name}</span>
@@ -176,7 +176,7 @@ const MarqueeColumn = ({ figures, duration = 100, reverse = false, className = "
             </motion.div>
         </div>
     )
-}
+})
 
 
 export function HeroSection() {
@@ -263,13 +263,13 @@ export function HeroSection() {
                 
                 {/* Columnas de Figuras Animadas */}
                 <div className="absolute left-0 top-0 bottom-0 w-1/4 hidden md:flex justify-center gap-4 p-4 opacity-60 hover:opacity-100 transition-opacity duration-300 z-0">
-                    <MarqueeColumn figures={shuffledFigures1}  />
-                    <MarqueeColumn figures={shuffledFigures2}  reverse className="hidden xl:flex" />
+                    <MarqueeColumn figures={shuffledFigures1} duration={120} />
+                    <MarqueeColumn figures={shuffledFigures2} duration={120} reverse className="hidden xl:flex" />
                 </div>
 
                 <div className="absolute right-0 top-0 bottom-0 w-1/4 hidden md:flex justify-center gap-4 p-4 opacity-60 hover:opacity-100 transition-opacity duration-300 z-0">
-                    <MarqueeColumn figures={shuffledFigures3}  className="hidden xl:flex"/>
-                    <MarqueeColumn figures={shuffledFigures4}  reverse  />
+                    <MarqueeColumn figures={shuffledFigures3} duration={120} className="hidden xl:flex"/>
+                    <MarqueeColumn figures={shuffledFigures4} duration={120} reverse  />
                 </div>
             </div>
 
