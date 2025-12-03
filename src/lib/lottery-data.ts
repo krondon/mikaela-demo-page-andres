@@ -1,3 +1,42 @@
+export const LOTTERY_CONFIG = {
+  COMPANY_INFO: {
+    NAME: "Mikaela",
+    FULL_NAME: "Mikaela La Pollita Millonaria",
+    OPERATOR: "Daga.corporación22 C.A.",
+    ENDORSER: "Lotería de Caracas",
+    COPYRIGHT_YEAR: new Date().getFullYear(),
+  },
+  GAME_RULES: {
+    ORDINARY_MULTIPLIER: 30,
+    SPECIAL_FIGURE_MULTIPLIER: 40,
+    SPECIAL_FIGURE_NUMBER: 21,
+    SPECIAL_FIGURE_NAME: "Mikaela",
+    DAILY_DRAWS_COUNT: 10,
+    WINNERS_COUNT_POLLO_LLENO: 3,
+  },
+  SCHEDULE: {
+    ORDINARY_START: "10:00 AM",
+    ORDINARY_END: "07:00 PM",
+    EXTRAORDINARY_TIME: "08:00 PM",
+    EXTRAORDINARY_HOUR_24: 20, // 8 PM
+  },
+  PRICING: {
+    DEFAULT_POT: 15450.00,
+    POLLO_LLENO_POT: 20000.00,
+    INITIAL_HERO_POT: 12500.00,
+    SPECIAL_GAME_PRIZE_1: "$50,000",
+    SPECIAL_GAME_PRIZE_2: "$45,000",
+  },
+  UI_TEXTS: {
+    POLLO_LLENO_TITLE: "Pollo Lleno",
+    POLLO_LLENO_SUBTITLE: "Sorteo Especial",
+    LA_POLLITA_TITLE: "La Pollita",
+    LA_POLLITA_SUBTITLE: "Sorteo Ordinario",
+    POLLO_MILLONARIO_TITLE: "Pollo Millonario",
+    POLLO_MILLONARIO_SUBTITLE: "Sorteo Extra-ordinario",
+  }
+}
+
 export interface LotteryFigure {
   number: number
   name: string
@@ -139,10 +178,10 @@ export const DAILY_DRAWS: DailyDraw[] = MOCK_RESULTS.map((result, index) => {
   const isToday = index === 0
   return {
     date: result.date,
-    totalPot: isToday ? 15450.00 : Math.floor(Math.random() * 5000) + 10000,
+    totalPot: isToday ? LOTTERY_CONFIG.PRICING.DEFAULT_POT : Math.floor(Math.random() * 5000) + 10000,
     winningFigures: result.extraordinary.figures,
     winnersCount: {
-      firstPlace: isToday ? 0 : Math.floor(Math.random() * 3) + 1,
+      firstPlace: isToday ? 0 : Math.floor(Math.random() * LOTTERY_CONFIG.GAME_RULES.WINNERS_COUNT_POLLO_LLENO) + 1,
       secondPlace: isToday ? 0 : Math.floor(Math.random() * 10) + 5
     }
   }

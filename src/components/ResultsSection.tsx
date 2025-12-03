@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
-import { SorteoType, getFigureByNumber, ORDINARY_TIMES, DailyResults, MOCK_RESULTS } from '@/lib/lottery-data'
+import { SorteoType, getFigureByNumber, ORDINARY_TIMES, DailyResults, MOCK_RESULTS, LOTTERY_CONFIG } from '@/lib/lottery-data'
 import { lotteryApi } from '@/services/lottery-api'
 import { format, parseISO } from 'date-fns'
 import { es } from 'date-fns/locale'
@@ -176,7 +176,7 @@ export function ResultsSection() {
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                       {filteredOrdinaryResults.map((result, idx) => {
                         const figure = getFigureByNumber(result.figureNumber)
-                        const isMikaela = result.figureNumber === 21
+                        const isMikaela = result.figureNumber === LOTTERY_CONFIG.GAME_RULES.SPECIAL_FIGURE_NUMBER
                         
                         return (
                           <Card
@@ -217,7 +217,7 @@ export function ResultsSection() {
                           </div>
                           {isMikaela && (
                               <Badge className="mt-2 bg-destructive text-destructive-foreground animate-pulse-glow">
-                                  ¡Paga 40x!
+                                  ¡Paga {LOTTERY_CONFIG.GAME_RULES.SPECIAL_FIGURE_MULTIPLIER}x!
                               </Badge>
                           )}
                       </Card>
@@ -233,7 +233,7 @@ export function ResultsSection() {
               ) : (
                 <div>
                   <h3 className="text-xl font-semibold mb-4 text-accent">
-                    Pollo Lleno (Sorteo Especial) - 8:00 PM
+                    {LOTTERY_CONFIG.UI_TEXTS.POLLO_LLENO_TITLE} ({LOTTERY_CONFIG.UI_TEXTS.POLLO_LLENO_SUBTITLE}) - {LOTTERY_CONFIG.SCHEDULE.EXTRAORDINARY_TIME}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-6">
                     Gana con 5 o 6 aciertos en cualquier orden
@@ -243,7 +243,7 @@ export function ResultsSection() {
                       <Clock className="h-12 w-12 text-accent mb-4 animate-pulse" />
                       <h4 className="text-xl font-bold text-accent mb-2">Sorteo pendiente</h4>
                       <p className="text-foreground/80 max-w-md">
-                        Los resultados del sorteo de las 8:00 PM de hoy aún no han sido publicados.
+                        Los resultados del sorteo de las {LOTTERY_CONFIG.SCHEDULE.EXTRAORDINARY_TIME} de hoy aún no han sido publicados.
                         <br />
                         Por favor, vuelve a consultar después de la hora del sorteo.
                       </p>
@@ -252,7 +252,7 @@ export function ResultsSection() {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:grid-cols-6">
                       {currentResults.extraordinary.figures.map((figNum, idx) => {
                         const figure = getFigureByNumber(figNum)
-                        const isMikaela = figNum === 21
+                        const isMikaela = figNum === LOTTERY_CONFIG.GAME_RULES.SPECIAL_FIGURE_NUMBER
                         
                         return (
                           <Card

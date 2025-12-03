@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
 import { Trophy, DollarSign, Ticket, Calendar as CalendarIcon, Clock, Star } from 'lucide-react'
-import { LOTTERY_FIGURES, DAILY_DRAWS } from '@/lib/lottery-data'
+import { LOTTERY_FIGURES, DAILY_DRAWS, LOTTERY_CONFIG } from '@/lib/lottery-data'
 import { format, parseISO, isSameDay } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Calendar } from '@/components/ui/calendar'
@@ -16,8 +16,8 @@ import { cn } from '@/lib/utils'
 
 // Mock data for live metrics
 const LIVE_METRICS = {
-  pote: 15450.00,
-  result: 20000.00,
+  pote: LOTTERY_CONFIG.PRICING.DEFAULT_POT,
+  result: LOTTERY_CONFIG.PRICING.POLLO_LLENO_POT,
   ganadores: 4494.00,
   tickets: 137
 }
@@ -66,9 +66,9 @@ const HISTORY_DATA = DAILY_DRAWS.flatMap((draw, drawIndex) => {
 
         // Calculate prize
         if (rank === 'GANADOR') {
-            const totalWinners = 3 // Fixed number of winners for demo
+            const totalWinners = LOTTERY_CONFIG.GAME_RULES.WINNERS_COUNT_POLLO_LLENO // Fixed number of winners for demo
             const perWinner = draw.totalPot / totalWinners
-            const resultTodayTest = 20000/3;
+            const resultTodayTest = LOTTERY_CONFIG.PRICING.POLLO_LLENO_POT/LOTTERY_CONFIG.GAME_RULES.WINNERS_COUNT_POLLO_LLENO;
             premio = `${perWinner.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs`
         }
     } else {
@@ -191,7 +191,7 @@ export function LiveDashboardSection() {
                 <span className="text-xl md:text-2xl text-slate-500 font-black mb-4 uppercase tracking-widest">Monto Acumulado</span>
                 {/* Monto de prueba sin base de datos */}
                 <div className="text-6xl md:text-8xl font-black text-primary flex flex-col md:flex-row items-center md:items-baseline gap-2 tracking-tighter drop-shadow-md leading-none">
-                  {(isSameDay(parseISO(selectedDraw?.date || ''), new Date()) && new Date().getHours() >= 20 ? metrics.result : metrics.pote).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
+                  {(isSameDay(parseISO(selectedDraw?.date || ''), new Date()) && new Date().getHours() >= LOTTERY_CONFIG.SCHEDULE.EXTRAORDINARY_HOUR_24 ? metrics.result : metrics.pote).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
                   <span className="text-4xl md:text-5xl text-primary/40 font-bold">Bs</span>
                 </div>
                 <Badge variant="outline" className="mt-6 text-base px-4 py-1.5 bg-green-100 text-green-800 border-green-300 font-bold shadow-sm">
@@ -326,7 +326,7 @@ export function LiveDashboardSection() {
                 <div className="flex flex-col items-center">
                   <span className="text-xs font-bold text-primary-foreground/80 uppercase tracking-wider">Pote Total</span>
                   <div className="text-2xl font-bold text-[var(--mikaela-gold)] flex items-center gap-1">
-                    {isSameDay(parseISO(selectedDraw.date), new Date()) && new Date().getHours() < 20 
+                    {isSameDay(parseISO(selectedDraw.date), new Date()) && new Date().getHours() < LOTTERY_CONFIG.SCHEDULE.EXTRAORDINARY_HOUR_24 
                       ? "Pendiente" 
                       : `${(isSameDay(parseISO(selectedDraw.date), new Date()) ? metrics.result : selectedDraw.totalPot).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Bs`
                     }
@@ -421,7 +421,7 @@ export function LiveDashboardSection() {
                       <TableCell className="text-right font-mono font-bold text-primary">
                         {row.premio !== '-' ? (
                           <>
-                            {((20000 / 3) .toLocaleString('es-VE', { minimumFractionDigits: 2 }))} Bs
+                            {((LOTTERY_CONFIG.PRICING.POLLO_LLENO_POT / LOTTERY_CONFIG.GAME_RULES.WINNERS_COUNT_POLLO_LLENO) .toLocaleString('es-VE', { minimumFractionDigits: 2 }))} Bs
                           </>
                         ) : (
                           '-'

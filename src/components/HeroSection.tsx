@@ -1,6 +1,6 @@
 import { Trophy, Sparkles, ChevronLeft, ChevronRight, Clock, Ticket, Award } from 'lucide-react' // Añadimos iconos de flecha
 import logo from '@/assets/images/Logo Mikaela La Pollita Millonaria_Mesa de trabajo 1.png'
-import { LOTTERY_FIGURES, LotteryFigure } from '@/lib/lottery-data' // Asumimos que LOTTERY_FIGURES es un array de objetos
+import { LOTTERY_FIGURES, LotteryFigure, LOTTERY_CONFIG } from '@/lib/lottery-data' // Asumimos que LOTTERY_FIGURES es un array de objetos
 import { useState, useMemo, useEffect, memo } from 'react' // Necesitamos useState
 import { motion, AnimatePresence } from 'framer-motion' // Importamos motion y AnimatePresence
 
@@ -33,8 +33,8 @@ const COLORS = {
 const GAME_MODES = [
     {
         id: 'pollo-lleno',
-        title: 'Pollo Lleno',
-        subtitle: 'Sorteo Especial',
+        title: LOTTERY_CONFIG.UI_TEXTS.POLLO_LLENO_TITLE,
+        subtitle: LOTTERY_CONFIG.UI_TEXTS.POLLO_LLENO_SUBTITLE,
         description: null, // Lo renderizaremos con el componente PolloLlenoContent
         icon: Trophy,
         color: COLORS.accentText,
@@ -44,10 +44,10 @@ const GAME_MODES = [
     },
     {
         id: 'pollita',
-        title: 'La Pollita',
-        subtitle: 'Sorteo Ordinario',
+        title: LOTTERY_CONFIG.UI_TEXTS.LA_POLLITA_TITLE,
+        subtitle: LOTTERY_CONFIG.UI_TEXTS.LA_POLLITA_SUBTITLE,
         // Texto ajustado para usar el amarillo de contraste
-        description: <p className={COLORS.primaryText}> <b className={COLORS.highlightText}>10 sorteos diarios</b>. Gana 30x tu apuesta, o 40x si sale Mikaela (<span className={COLORS.highlightText}>#21</span>). </p>,
+        description: <p className={COLORS.primaryText}> <b className={COLORS.highlightText}>{LOTTERY_CONFIG.GAME_RULES.DAILY_DRAWS_COUNT} sorteos diarios</b>. Gana {LOTTERY_CONFIG.GAME_RULES.ORDINARY_MULTIPLIER}x tu apuesta, o {LOTTERY_CONFIG.GAME_RULES.SPECIAL_FIGURE_MULTIPLIER}x si sale {LOTTERY_CONFIG.GAME_RULES.SPECIAL_FIGURE_NAME} (<span className={COLORS.highlightText}>#{LOTTERY_CONFIG.GAME_RULES.SPECIAL_FIGURE_NUMBER}</span>). </p>,
         icon: Clock,
         color: COLORS.accentText,
         bgColor: COLORS.primaryIconBg,
@@ -56,8 +56,8 @@ const GAME_MODES = [
     },
     {
         id: 'millonario',
-        title: 'Pollo Millonario',
-        subtitle: 'Sorteo Extra-ordinario',
+        title: LOTTERY_CONFIG.UI_TEXTS.POLLO_MILLONARIO_TITLE,
+        subtitle: LOTTERY_CONFIG.UI_TEXTS.POLLO_MILLONARIO_SUBTITLE,
         // Texto ajustado para usar el amarillo de contraste
         description: <p className={COLORS.primaryText}>Tickets pre-impresos con combinaciones únicas. <b className={COLORS.highlightText}>¡Gana según tus aciertos!</b></p>,
         icon: Ticket,
@@ -71,7 +71,7 @@ const GAME_MODES = [
 // Componente visual para Pollo Lleno (Cuenta regresiva + Monto)
 const PolloLlenoContent = ({ timeLeft }) => {
 
-    const [metrics, setMetrics] = useState({ pote: 12500.00 }); // Simulación de métricas
+    const [metrics, setMetrics] = useState({ pote: LOTTERY_CONFIG.PRICING.INITIAL_HERO_POT }); // Simulación de métricas
 
     // Simulate live updates
   useEffect(() => {
@@ -191,7 +191,7 @@ export function HeroSection() {
             const now = new Date();
             // Configurar meta: Hoy a las 8:00 PM (20:00)
             let target = new Date();
-            target.setHours(20, 0, 0, 0);
+            target.setHours(LOTTERY_CONFIG.SCHEDULE.EXTRAORDINARY_HOUR_24, 0, 0, 0);
 
             // Si ya pasaron las 8 PM, la meta es mañana
             if (now > target) {

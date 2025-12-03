@@ -1,4 +1,4 @@
-import { DailyResults, MOCK_RESULTS, LOTTERY_FIGURES, OrdinaryResult } from '@/lib/lottery-data';
+import { DailyResults, MOCK_RESULTS, LOTTERY_FIGURES, OrdinaryResult, LOTTERY_CONFIG } from '@/lib/lottery-data';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { supabase } from '@/lib/supabase';
@@ -221,7 +221,7 @@ export const lotteryApi = {
       dateFormatted: format(date, "d 'de' MMMM, yyyy", { locale: es }),
       figures: figures,
       ticketSerial: (seed % 3 !== 0) ? `A-${seed.toString().slice(-7)}` : 'Vacante',
-      prize: (seed % 2 === 0) ? '$50,000' : '$45,000',
+      prize: (seed % 2 === 0) ? LOTTERY_CONFIG.PRICING.SPECIAL_GAME_PRIZE_1 : LOTTERY_CONFIG.PRICING.SPECIAL_GAME_PRIZE_2,
       status: (seed % 3 !== 0) ? 'Ganador' : 'Vacante'
     };
   },
@@ -247,7 +247,7 @@ export const lotteryApi = {
     // SUPABASE IMPLEMENTATION:
     // Calcular sumas de la tabla 'tickets' y 'draws'
     return {
-      pote: 15450.00,
+      pote: LOTTERY_CONFIG.PRICING.DEFAULT_POT,
       ganadores: 4494.00,
       tickets: 137
     };
@@ -318,7 +318,7 @@ export const lotteryApi = {
                 }
 
                 if (rank === 'GANADOR') {
-                    const totalWinners = 3;
+                    const totalWinners = LOTTERY_CONFIG.GAME_RULES.WINNERS_COUNT_POLLO_LLENO;
                     const perWinner = draw.totalPot / totalWinners;
                     premio = `${perWinner.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs`;
                 }

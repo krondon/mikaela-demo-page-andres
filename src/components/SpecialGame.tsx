@@ -2,6 +2,7 @@ import React from 'react'
 import { Sparkles, HelpCircle, Lock, Eye } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { LOTTERY_CONFIG } from '@/lib/lottery-data'
 
 export function SpecialGame() {
   
@@ -64,7 +65,7 @@ export function SpecialGame() {
                 
                 {/* Header del Ticket */}
                 <div className="flex flex-col items-center text-center mb-8 relative z-10">
-                  <h3 className="font-black text-3xl text-white uppercase tracking-tighter drop-shadow-md">Mikaela</h3>
+                  <h3 className="font-black text-3xl text-white uppercase tracking-tighter drop-shadow-md">{LOTTERY_CONFIG.COMPANY_INFO.NAME}</h3>
                   <div className="h-0.5 w-12 bg-yellow-500 my-2"></div>
                   <p className="text-[10px] text-emerald-400 font-bold tracking-[0.2em] uppercase">Confidencial</p>
                 </div>
