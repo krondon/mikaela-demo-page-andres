@@ -35,7 +35,6 @@ export function Footer() {
             <div className="space-y-2 text-sm opacity-80">
               <p>🕐 La Pollita: 10:00 AM - 7:00 PM</p>
               <p>🕗 Pollo Lleno: 8:00 PM</p>
-              <p>📅 Pollo Millonario: Mensual</p>
             </div>
           </div>
         </div>

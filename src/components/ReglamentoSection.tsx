@@ -32,7 +32,7 @@ export function ReglamentoSection() {
                     <Clock className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-foreground cursor-pointer">1. Sorteo Ordinario: "La Pollita" (Juego Rápido)</h3>
+                    <h3 className="text-xl font-semibold text-foreground cursor-pointer">1. Sorteo Ordinario: "La Pollita"</h3>
                   </div>
                 </div>
               </AccordionTrigger>
@@ -96,7 +96,7 @@ export function ReglamentoSection() {
                     <Trophy className="h-6 w-6 text-accent" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-foreground ">2. Sorteo Extra-ordinario: "Pollo Lleno" (El Acumulado)</h3>
+                    <h3 className="text-xl font-semibold text-foreground ">2. Sorteo Extra-ordinario: "Pollo Lleno"</h3>
                   </div>
                 </div>
               </AccordionTrigger>
@@ -131,7 +131,7 @@ export function ReglamentoSection() {
                         </h4>
                         <ul className="list-disc list-inside text-foreground/80 space-y-2 ml-2">
                             <li>Ganas si aciertas <strong>5 o 6 figuras</strong> de las extraídas.</li>
-                            <li><strong>Premio:</strong> Es un pozo acumulado que se reparte entre todos los ganadores. Si eres el único, te llevas el total acumulado.</li>
+                            <li><strong>Premio:</strong> Es un monto acumulado que se reparte entre todos los ganadores. Si eres el único, te llevas el total acumulado.</li>
                         </ul>
                     </div>
                   </div>

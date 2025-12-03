@@ -187,8 +187,8 @@ export function LiveDashboardSection() {
           {/* Metrics Cards */}
           <div className="grid w-full h-full gap-4">
             <Card className="border-4 border-primary/20 shadow-2xl hover:shadow-3xl transition-all bg-gradient-to-br from-white to-slate-50 transform hover:scale-[1.02]">
-              <CardContent className="p-8 md:p-14 flex flex-col items-center text-center justify-center h-full">
-                <span className="text-xl md:text-2xl text-slate-500 font-black mb-4 uppercase tracking-widest">Monto Recaudado</span>
+              <CardContent className="p-0 md:p-0 flex flex-col items-center text-center justify-center h-full">
+                <span className="text-xl md:text-2xl text-slate-500 font-black mb-4 uppercase tracking-widest">Monto Acumulado</span>
                 {/* Monto de prueba sin base de datos */}
                 <div className="text-6xl md:text-8xl font-black text-primary flex flex-col md:flex-row items-center md:items-baseline gap-2 tracking-tighter drop-shadow-md leading-none">
                   {(isSameDay(parseISO(selectedDraw?.date || ''), new Date()) && new Date().getHours() >= 20 ? metrics.result : metrics.pote).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 
