@@ -54,18 +54,18 @@ const GAME_MODES = [
         iconColor: COLORS.primaryIconText,
         borderColor: COLORS.cardBorder
     },
-    {
-        id: 'millonario',
-        title: LOTTERY_CONFIG.UI_TEXTS.POLLO_MILLONARIO_TITLE,
-        subtitle: LOTTERY_CONFIG.UI_TEXTS.POLLO_MILLONARIO_SUBTITLE,
-        // Texto ajustado para usar el amarillo de contraste
-        description: <p className={COLORS.primaryText}>Tickets pre-impresos con combinaciones únicas. <b className={COLORS.highlightText}>¡Gana según tus aciertos!</b></p>,
-        icon: Ticket,
-        color: COLORS.accentText,
-        bgColor: COLORS.primaryIconBg,
-        iconColor: COLORS.primaryIconText,
-        borderColor: COLORS.cardBorder
-    }
+    // {
+    //     id: 'millonario',
+    //     title: LOTTERY_CONFIG.UI_TEXTS.POLLO_MILLONARIO_TITLE,
+    //     subtitle: LOTTERY_CONFIG.UI_TEXTS.POLLO_MILLONARIO_SUBTITLE,
+    //     // Texto ajustado para usar el amarillo de contraste
+    //     description: <p className={COLORS.primaryText}>Tickets pre-impresos con combinaciones únicas. <b className={COLORS.highlightText}>¡Gana según tus aciertos!</b></p>,
+    //     icon: Ticket,
+    //     color: COLORS.accentText,
+    //     bgColor: COLORS.primaryIconBg,
+    //     iconColor: COLORS.primaryIconText,
+    //     borderColor: COLORS.cardBorder
+    // }
 ];
 
 // Componente visual para Pollo Lleno (Cuenta regresiva + Monto)
